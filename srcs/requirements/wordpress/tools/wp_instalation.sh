@@ -9,7 +9,7 @@ else
     chmod +x wp-cli.phar
     mv wp-cli.phar /usr/bin/wp
     wp core download --allow-root
-    #replacing the actual values in the wp-config.php file
+    #Replacing the actual values in the wp-config.php file
     sed -i -r "s/database_name_here/$MYSQL_DB_NAME/1" /var/www/html/wp-config.php
     sed -i -r "s/username_here/$MYSQL_USER/1" /var/www/html/wp-config.php
     sed -i -r "s/password_here/$MYSQL_PASSWORD/1" /var/www/html/wp-config.php
@@ -25,5 +25,5 @@ fi
 sed -i 's/listen = \/run\/php\/php7.3-fpm.sock/listen = 9000/g' /etc/php/7.3/fpm/pool.d/www.conf
 #This directory is used by PHP-FPM to store Unix domain sockets
 mkdir -p /run/php
-# Run php-fpm7.3 in the foreground to keep the container alive
+#Run php-fpm7.3 in the foreground to keep the container alive
 php-fpm7.3 -F -R

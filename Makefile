@@ -1,4 +1,4 @@
-DOCKER_COMPOSE=srcs/docker-compose.yml
+DOCKER_COMPOSE_FILE=srcs/docker-compose.yml
 
 all: run
 
@@ -6,7 +6,7 @@ all: run
 #docker-compose up is used to start the containers based on the images and run the application.
 #-d flag makes the containers run in detached mode, preventing to block the terminal and allowing them to run in the background.
 run:
-	sudo docker-compose -f $(DOCKER_COMPOSE) up -d --build
+	sudo docker-compose -f $(DOCKER_COMPOSE_FILE) up -d --build
 	sudo bash srcs/requirements/nginx/tools/hosts.sh
 
 list_containers:
@@ -23,7 +23,7 @@ list_networks:
 
 #prune -> to remove unused networks
 clean:
-	sudo docker-compose -f $(DOCKER_COMPOSE) down --rmi all
+	sudo docker-compose -f $(DOCKER_COMPOSE_FILE) down --rmi all
 	sudo docker network prune -f
 	sudo docker volume ls -q | xargs -I {} sudo docker volume rm {}
 	sudo rm -rf /home/pemiguel/data/wordpress/*
