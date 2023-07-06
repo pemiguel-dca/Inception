@@ -1,7 +1,6 @@
 FROM debian:buster
 
-#Update and create a setup directory to store the server_setup script
-RUN apt-get update -yq && apt-get upgrade -yq && mkdir setup
+RUN apt-get update -yq && apt-get upgrade -yq
 
 #Install mariadb
 RUN apt-get install -yq mariadb-server
