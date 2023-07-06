@@ -1,0 +1,68 @@
+version: '3.3'
+
+volumes:
+  mariadb_volume:
+    name: mariadb_volume
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: /home/pemiguel/data/mariadb
+  
+  wordpress_volume:
+    name: wordpress_volume
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: /home/pemiguel/data/wordpress
+  
+services:
+  nginx:
+    container_name: nginx
+    build: requirements/nginx
+    image: nginx
+    depends_on:
+      - wordpress
+    ports:
+      - 443:443
+    networks:
+      - my_network
+    volumes:
+      - wordpress_volume:/var/www/html
+    restart: always
+
+  wordpress:
+    container_name: wordpress
+    build: requirements/wordpress
+    image: wordpress
+    depends_on:
+      - mariadb
+    ports:
+      - 9000:9000
+    networks:
+      - my_network
+    volumes:
+      - wordpress_volume:/var/www/html
+    restart: always
+    env_file:
+      - ../.env
+
+  mariadb:
+    container_name: mariadb
+    build: requirements/mariadb
+    image: mariadb
+    ports:
+      - 3306:3306
+    networks:
+      - my_network
+    volumes:
+      - mariadb_volume:/var/lib/mysql
+    env_file:
+      - ../.env
+    restart: always
+
+#creating a network for the containers communicate with theirself
+networks:
+  my_network:
+    name: my_network

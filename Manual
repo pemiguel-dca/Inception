@@ -1,0 +1,35 @@
+Nginx config
+
+Server ciphers are a combination of encryption algorithms, key exchange algorithms, and message authentication code algorithms used during the TLS/SSL handshake to establish a secure communication channel between a client (e.g., web browser) and a server (e.g., web server).
+
+location -> its a configuration used to define a block of directives that apply to specific URL patterns or paths.
+
+##
+Explaning each directive:
+fastcgi_split_path_info ^(.+\.php)(/.+)$;: This directive is used to split the path_info component of the request URI. It captures the PHP file name and the additional path information (if any).
+
+fastcgi_pass wordpress:9000;: This directive specifies the backend FastCGI server and port to which the PHP requests should be forwarded. In this example, the backend server is named wordpress and is listening on port 9000.
+
+include fastcgi_params;: This directive includes a separate file "fastcgi_params" that contains FastCGI-related configuration parameters. This file typically defines FastCGI parameters like fastcgi_param directives.
+
+fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;: This directive sets the SCRIPT_FILENAME, which specifies the full path to the requested PHP file. $document_root represents the root directory configured for the server, and $fastcgi_script_name contains the value captured from the request URI, which is the relative path to a PHP file.
+
+fastcgi_param PATH_INFO $fastcgi_path_info;: This directive sets the PATH_INFO FastCGI parameter, which contains the additional path information extracted from the request URI.
+
+###
+location /{...}
+Here basically saying that any URLs that don't match a more specific path go through this block, and in this block we try to find some index files in the root directory(try_files directive, the last paramater being the fallback, which means if neither the file nor the directory index file is found, NGINX returns a "404 Not Found").
+
+URI directories-> directory that refers to a component of a Uniform Resource Identifier (URI) that represents a hierarchical structure for organizing and accessing resources on the web.
+A URI is a string of characters that identifies a specific resource, such as a webpage, an image, or a file, and the directory component helps locate and navigate to the desired resource within a file system or a web server.
+
+Example:
+In the URI "https://example.com/images/photo.jpg," the "/images/" part represents the directory within the 'example.com' domain where the 'photo.jpg' file is located. It implies that there is a directory named 'images' within the web server's file system hierarchy.
+
+Dockerfile documentation: https://docs.docker.com/engine/reference/builder/
+
+Makefile
+
+docker compose -f 'docker-compose.yml' up
+This command builds, (re)creates, starts, and attaches to containers for a service, the '-f' flag specifies an alternative compose file. If they are already running, this command will start any linked services.
+
