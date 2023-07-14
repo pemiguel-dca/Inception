@@ -1,12 +1,17 @@
-version: '3.3'
+version: '2.2'
 
+#The purpose of using Docker volumes is to persist data outside the container so it can be backed up or shared between them.
+#
 volumes:
   mariadb_volume:
     name: mariadb_volume
+    #Using a local volume, which means you can use this volume in your services or containers by specifying its name, like volumes: [my_volume:/path/in/container]
     driver: local
     driver_opts:
       type: none
+      #This option indicates that the volume is a bind mount, where a directory on the host machine is mounted into the container.
       o: bind
+      #Specifies the path to the directory on the host machine that will be mounted into the container.
       device: /home/pemiguel/data/mariadb
   
   wordpress_volume:
@@ -53,7 +58,7 @@ services:
     build: requirements/mariadb
     image: mariadb
     ports:
-      - 3306:3306
+      - 3307:3306
     networks:
       - my_network
     volumes:

@@ -1,7 +1,7 @@
 FROM debian:buster
 
 #Update and install nginx and openssl
-RUN apt-get update && apt-get install -yq nginx \
+RUN apt-get update -yq && apt-get install -yq nginx \
     openssl
 #Create the directory for ssl_certificates
 RUN mkdir -p /etc/nginx/ssl_certificates

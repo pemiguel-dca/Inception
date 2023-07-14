@@ -4,7 +4,7 @@ RUN apt-get update -yq && apt-get upgrade -yq
 
 EXPOSE 9000
 #Install php packages
-RUN apt install -yq php7.3 \
+RUN apt-get install -yq php7.3 \
     php-fpm \
     php-mysql \
     curl

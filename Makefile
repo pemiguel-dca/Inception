@@ -21,11 +21,10 @@ list_volumes:
 list_networks:
 	docker network ls
 
-#prune -> to remove unused networks
+#prune -> to remove unused things
 clean:
-	sudo docker-compose -f $(DOCKER_COMPOSE_FILE) down --rmi all
-	sudo docker network prune -f
-	sudo docker volume ls -q | xargs -I {} sudo docker volume rm {}
+	sudo docker-compose -f $(DOCKER_COMPOSE_FILE) down
+	sudo docker system prune -af
 	sudo rm -rf /home/pemiguel/data/wordpress/*
 	sudo rm -rf /home/pemiguel/data/mariadb/*
 

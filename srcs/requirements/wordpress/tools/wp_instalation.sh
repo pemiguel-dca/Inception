@@ -1,10 +1,11 @@
 #!/bin/sh
+
+mkdir -p /var/www/html
+cd /var/www/html
 if [ -f /var/www/html/wp-config.php ]; then
     echo "Config file already exists!"
 else
-    mkdir -p /var/www/html
     mv -f /wp-config/wp-config.php /var/www/html/
-    cd /var/www/html
     curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
     chmod +x wp-cli.phar
     mv wp-cli.phar /usr/bin/wp
